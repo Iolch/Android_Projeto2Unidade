@@ -1,5 +1,6 @@
 package com.example.project2uni
 
+import android.content.Intent
 import androidx.appcompat.app.AppCompatActivity
 import android.os.Bundle
 import android.view.Menu
@@ -21,7 +22,10 @@ class MainActivity : AppCompatActivity() {
     }
 
     override fun onOptionsItemSelected(item: MenuItem): Boolean {
-        Toast.makeText(this, "adicionaNota", Toast.LENGTH_SHORT)
+        val it = Intent(this, EditNoteActivity::class.java)
+//        intent.putExtra("keyIdentifier", value)
+        startActivity(it)
+
         return super.onOptionsItemSelected(item)
     }
     override fun onCreate(savedInstanceState: Bundle?) {

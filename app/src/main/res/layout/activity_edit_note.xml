@@ -12,7 +12,7 @@
         android:layout_above="@+id/bottom_bar"
         android:fillViewport="true">
 
-        <EditText
+        <TextView
             android:layout_width="match_parent"
             android:layout_height="wrap_content"
             android:id="@+id/note_text"/>
