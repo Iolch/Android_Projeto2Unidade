@@ -17,7 +17,7 @@ class NameNoteDialogFragment(): DialogFragment(){
                     .setPositiveButton("Ok",
                         DialogInterface.OnClickListener { dialog, id ->
                             val noteNameEdt: EditText = getDialog().findViewById(R.id.note_name);
-                            (this@NameNoteDialogFragment.getParentFragment() as EditNoteActivity).onDialogOKPressed(noteNameEdt.text)
+                            (this@NameNoteDialogFragment.getParentFragment() as EditNoteActivity).onDialogOKPressed(noteNameEdt.text.toString())
                             dismiss()
                         })
                     .setTitle("Nome da Nota")

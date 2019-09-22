@@ -3,9 +3,9 @@ package com.example.project2uni
 import android.content.Intent
 import androidx.appcompat.app.AppCompatActivity
 import android.os.Bundle
+import android.os.PersistableBundle
 import android.view.Menu
 import android.view.MenuItem
-import android.widget.Toast
 import androidx.recyclerview.widget.LinearLayoutManager
 import androidx.recyclerview.widget.RecyclerView
 
@@ -14,8 +14,14 @@ class MainActivity : AppCompatActivity() {
     private lateinit var recyclerView: RecyclerView
     private lateinit var viewAdapter: RecyclerView.Adapter<*>
     private lateinit var viewManager: RecyclerView.LayoutManager
-    private lateinit var notes: List <Note>
+    private lateinit var notes: Array <Note>
 
+    override fun onCreate(savedInstanceState: Bundle?, persistentState: PersistableBundle?) {
+        super.onCreate(savedInstanceState, persistentState)
+        val it:Intent = getIntent()
+        if(it.hasExtra("note_name") && it.hasExtra("text")) storeNote(it.getStringExtra("note_name"), it.getStringExtra("text"))
+        if(it.hasExtra("position")) updateNote(it.getIntExtra("position",-1), it.getStringExtra("text"))
+    }
     override fun onCreateOptionsMenu(menu: Menu?): Boolean {
         getMenuInflater().inflate(R.menu.main_menu, menu)
         return true
@@ -23,7 +29,6 @@ class MainActivity : AppCompatActivity() {
 
     override fun onOptionsItemSelected(item: MenuItem): Boolean {
         val it = Intent(this, EditNoteActivity::class.java)
-//        intent.putExtra("keyIdentifier", value)
         startActivity(it)
 
         return super.onOptionsItemSelected(item)
@@ -50,5 +55,14 @@ class MainActivity : AppCompatActivity() {
                 "Como posso melhorar o código dos meus projetos"),
             Note("Estudo",
                 "Como sincronizar minha App com um Web Service"))
+    }
+    private fun storeNote(name: String, text: String)
+    {
+            var i:Int = notes.size
+            notes.set(i, Note(name, text))
+    }
+    private fun updateNote(position:Int, text:String)
+    {
+            notes.get(position).description = text
     }
 }
