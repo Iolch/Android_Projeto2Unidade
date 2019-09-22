@@ -14,7 +14,7 @@ class MainActivity : AppCompatActivity() {
     private lateinit var recyclerView: RecyclerView
     private lateinit var viewAdapter: RecyclerView.Adapter<*>
     private lateinit var viewManager: RecyclerView.LayoutManager
-    private lateinit var notes: Array <Note>
+    private var notes: List <Note> = listOf(Note("teste", "123123"))
 
     override fun onCreate(savedInstanceState: Bundle?, persistentState: PersistableBundle?) {
         super.onCreate(savedInstanceState, persistentState)
@@ -38,7 +38,7 @@ class MainActivity : AppCompatActivity() {
         setContentView(R.layout.activity_main)
 
         viewManager = LinearLayoutManager(this)
-        viewAdapter = NotesListAdapter(notes(), this)
+        viewAdapter = NotesListAdapter(notes, this)
 
         recyclerView = findViewById<RecyclerView>(R.id.note_list_recyclerview).apply {
             setHasFixedSize(true)
@@ -46,20 +46,10 @@ class MainActivity : AppCompatActivity() {
             adapter = viewAdapter
         }
     }
-
-    private fun notes(): List<Note> {
-        return listOf(
-            Note("Leitura",
-                "Livro de Kotlin com Android"),
-            Note("Pesquisa",
-                "Como posso melhorar o código dos meus projetos"),
-            Note("Estudo",
-                "Como sincronizar minha App com um Web Service"))
-    }
     private fun storeNote(name: String, text: String)
     {
             var i:Int = notes.size
-            notes.set(i, Note(name, text))
+//            notes.set(i, Note(name, text))
     }
     private fun updateNote(position:Int, text:String)
     {

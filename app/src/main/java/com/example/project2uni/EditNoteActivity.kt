@@ -10,16 +10,19 @@ import android.widget.TextView
 
 class EditNoteActivity : AppCompatActivity() {
 
-    private val notetext: TextView = findViewById(R.id.note_text);
-    private lateinit var notename: String;
-    private val pageintent = getIntent();
+    private lateinit var notetext: EditText
+    private lateinit var notename: String
+    private lateinit var pageintent: Intent
 
     override fun onCreate(savedInstanceState: Bundle?) {
         super.onCreate(savedInstanceState)
         setContentView(R.layout.activity_edit_note)
+
+        notetext = findViewById(R.id.note_text)
+        pageintent = getIntent()
+
         if(pageintent.hasExtra("position")){
-            val txt: TextView = findViewById(R.id.note_text);
-            txt.setText(pageintent.getStringExtra("text"))
+            notetext.setText(pageintent.getStringExtra("text"))
         }
     }
     fun cancel (view: View)
