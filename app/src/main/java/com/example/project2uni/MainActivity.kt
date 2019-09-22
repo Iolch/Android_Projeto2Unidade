@@ -4,6 +4,7 @@ import android.content.Intent
 import androidx.appcompat.app.AppCompatActivity
 import android.os.Bundle
 import android.os.PersistableBundle
+import android.util.Log
 import android.view.Menu
 import android.view.MenuItem
 import androidx.recyclerview.widget.LinearLayoutManager
@@ -17,10 +18,11 @@ class MainActivity : AppCompatActivity() {
     private var notes: ArrayList <Note> = arrayListOf(Note("teste", "123123"))
 
     override fun onCreate(savedInstanceState: Bundle?, persistentState: PersistableBundle?) {
-        super.onCreate(savedInstanceState, persistentState)
+
         val it:Intent = getIntent()
         if(it.hasExtra("note_name") && it.hasExtra("text")) storeNote(it.getStringExtra("note_name"), it.getStringExtra("text"))
-        if(it.hasExtra("position")) updateNote(it.getIntExtra("position",-1), it.getStringExtra("text"))
+        if(it.hasExtra("position")) updateNote(it.getIntExtra("position",0), it.getStringExtra("text"))
+        super.onCreate(savedInstanceState, persistentState)
     }
     override fun onCreateOptionsMenu(menu: Menu?): Boolean {
         getMenuInflater().inflate(R.menu.main_menu, menu)

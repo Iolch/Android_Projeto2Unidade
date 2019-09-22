@@ -4,6 +4,7 @@ import android.content.Intent
 import androidx.appcompat.app.AppCompatActivity
 import android.os.Bundle
 import android.text.Editable
+import android.util.Log
 import android.view.View
 import android.widget.EditText
 import android.widget.TextView
@@ -46,7 +47,7 @@ class EditNoteActivity : AppCompatActivity() {
         }else{
             val it = Intent(this, MainActivity::class.java)
             it.putExtra("text", notetext.text)
-            it.putExtra("note_position", pageintent.getIntExtra("note_position", -1))
+            it.putExtra("note_position", pageintent.getIntExtra("note_position", 0))
             startActivity(it)
         }
     }
