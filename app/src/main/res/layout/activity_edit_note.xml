@@ -28,13 +28,15 @@
             android:layout_height="wrap_content"
             android:text="Cancel"
             android:layout_weight=".50"
-            android:id="@+id/cancel_edit"/>
+            android:id="@+id/cancel_edit"
+            android:onClick="cancel"/>
         <Button
             android:layout_width="0dp"
             android:layout_height="wrap_content"
             android:layout_weight=".50"
             android:text="Save"
-            android:id="@+id/save_edit"/>
+            android:id="@+id/save_edit"
+            android:onClick="save"/>
     </LinearLayout>
 
 </RelativeLayout>
