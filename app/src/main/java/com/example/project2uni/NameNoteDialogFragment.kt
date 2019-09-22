@@ -2,6 +2,7 @@ package com.example.project2uni
 
 import android.app.AlertDialog
 import android.app.Dialog
+import android.content.Context
 import android.content.DialogInterface
 import android.content.Intent
 import android.os.Bundle
@@ -16,8 +17,9 @@ class NameNoteDialogFragment(): DialogFragment(){
             builder.setView(inflater.inflate(R.layout.dialog_name_note, null))
                     .setPositiveButton("Ok",
                         DialogInterface.OnClickListener { dialog, id ->
-                            val noteNameEdt: EditText = getDialog().findViewById(R.id.note_name);
-                            (this.getParentFragment() as EditNoteActivity).onDialogOKPressed(noteNameEdt.text.toString())
+                            val noteNameEdt: EditText = getDialog().findViewById(R.id.note_name)
+                            (getContext() as EditNoteActivity).onDialogOKPressed(noteNameEdt.text.toString())
+//                            (this@NameNoteDialogFragment.getParentFragment() as EditNoteActivity).onDialogOKPressed(noteNameEdt.text.toString())
                             dismiss()
                         })
                     .setTitle("Nome da Nota")

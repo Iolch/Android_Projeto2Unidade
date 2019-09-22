@@ -42,7 +42,7 @@ class EditNoteActivity : AppCompatActivity() {
     {
         if(!pageintent.hasExtra("position")) {
             val newFragment = NameNoteDialogFragment()
-            newFragment.show(supportFragmentManager, "missiles")
+            newFragment.show(supportFragmentManager, "notes")
         }else{
             val it = Intent(this, MainActivity::class.java)
             it.putExtra("text", notetext.text)

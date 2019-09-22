@@ -14,7 +14,7 @@ class MainActivity : AppCompatActivity() {
     private lateinit var recyclerView: RecyclerView
     private lateinit var viewAdapter: RecyclerView.Adapter<*>
     private lateinit var viewManager: RecyclerView.LayoutManager
-    private var notes: List <Note> = listOf(Note("teste", "123123"))
+    private var notes: ArrayList <Note> = arrayListOf(Note("teste", "123123"))
 
     override fun onCreate(savedInstanceState: Bundle?, persistentState: PersistableBundle?) {
         super.onCreate(savedInstanceState, persistentState)
@@ -48,11 +48,18 @@ class MainActivity : AppCompatActivity() {
     }
     private fun storeNote(name: String, text: String)
     {
-            var i:Int = notes.size
-//            notes.set(i, Note(name, text))
+        notes.add(Note(name, text))
     }
     private fun updateNote(position:Int, text:String)
     {
             notes.get(position).description = text
+    }
+    fun editNote(position: Int, text: String)
+    {
+        val it = Intent(this, EditNoteActivity::class.java)
+        it.putExtra("position", position)
+        it.putExtra("text", text)
+
+        startActivity(it)
     }
 }

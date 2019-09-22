@@ -1,6 +1,7 @@
 package com.example.project2uni
 
 import android.content.Context
+import android.content.Intent
 import android.view.LayoutInflater
 import android.view.View
 import android.view.ViewGroup
@@ -11,11 +12,11 @@ import kotlinx.android.synthetic.main.note_item.view.*
 //https://medium.com/collabcode/criando-lista-com-recyclerview-no-android-com-kotlin-85cb76f3775d
 
 
-class NotesListAdapter (private val notes: List <Note>, private val context: Context): RecyclerView.Adapter<NotesListAdapter.ViewHolder>() {
+class NotesListAdapter (private val notes: ArrayList <Note>, private val context: Context): RecyclerView.Adapter<NotesListAdapter.ViewHolder>() {
 
     override fun onCreateViewHolder(parent: ViewGroup, viewType: Int): ViewHolder {
         val noteview = LayoutInflater.from(context).inflate(R.layout.note_item, parent, false)
-        return ViewHolder(noteview)
+        return ViewHolder(noteview, context)
     }
 
     override fun getItemCount(): Int {
@@ -29,10 +30,13 @@ class NotesListAdapter (private val notes: List <Note>, private val context: Con
 
     }
 
-    class ViewHolder(itemView: View) : RecyclerView.ViewHolder(itemView){
+    class ViewHolder(itemView: View, private val context: Context) : RecyclerView.ViewHolder(itemView), View.OnClickListener{
 
         val title = itemView.note_item_title
         val description = itemView.note_item_description
 
+        override fun onClick(v: View?) {
+            (context as MainActivity).editNote(layoutPosition, description.text.toString())
+        }
     }
 }
