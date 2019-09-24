@@ -42,11 +42,14 @@ class MainActivity : AppCompatActivity() {
         viewManager = LinearLayoutManager(this)
         viewAdapter = NotesListAdapter(notes, this)
 
+
         recyclerView = findViewById<RecyclerView>(R.id.note_list_recyclerview).apply {
             setHasFixedSize(true)
             layoutManager = viewManager
             adapter = viewAdapter
         }
+
+
     }
     private fun storeNote(name: String, text: String)
     {
@@ -54,6 +57,7 @@ class MainActivity : AppCompatActivity() {
     }
     private fun updateNote(position:Int, text:String)
     {
+            Log.e("teste", "cheguqieee")
             notes.get(position).description = text
     }
     fun editNote(position: Int, text: String)
