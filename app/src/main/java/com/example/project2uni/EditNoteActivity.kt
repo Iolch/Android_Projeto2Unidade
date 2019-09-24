@@ -1,5 +1,6 @@
 package com.example.project2uni
 
+import android.content.DialogInterface
 import android.content.Intent
 import androidx.appcompat.app.AppCompatActivity
 import android.os.Bundle
@@ -9,8 +10,7 @@ import android.view.View
 import android.widget.EditText
 import android.widget.TextView
 
-class EditNoteActivity : AppCompatActivity() {
-
+class EditNoteActivity : AppCompatActivity(){
     private lateinit var notetext: EditText
     private lateinit var notename: String
     private lateinit var pageintent: Intent
@@ -31,18 +31,19 @@ class EditNoteActivity : AppCompatActivity() {
         val it = Intent(this, MainActivity::class.java)
         startActivity(it)
     }
-    fun onDialogOKPressed(notename: String)
+    fun onDialogOKPressed()
     {
         val it = Intent(this, MainActivity::class.java)
-        if(notetext.text != null) it.putExtra("text", notetext.text)
-        it.putExtra("note_name", notename)
+        val notename: EditText = findViewById(R.id.note_name)
+        it.putExtra("text", notetext.text)
+        it.putExtra("note_name", notename.text)
         startActivity(it)
-
     }
+
     fun save (view: View)
     {
         if(!pageintent.hasExtra("position")) {
-            val newFragment = NameNoteDialogFragment()
+            val newFragment = NameNoteDialogFragment(this)
             newFragment.show(supportFragmentManager, "notes")
         }else{
             val it = Intent(this, MainActivity::class.java)

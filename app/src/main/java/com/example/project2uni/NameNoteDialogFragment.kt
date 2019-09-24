@@ -6,10 +6,11 @@ import android.content.Context
 import android.content.DialogInterface
 import android.content.Intent
 import android.os.Bundle
+import android.util.Log
 import android.widget.EditText
 import androidx.fragment.app.DialogFragment
 
-class NameNoteDialogFragment(): DialogFragment(){
+class NameNoteDialogFragment(context: Context): DialogFragment(){
     override fun onCreateDialog(savedInstanceState: Bundle?): Dialog {
         return activity?.let {
             val builder = AlertDialog.Builder(it)
@@ -17,9 +18,7 @@ class NameNoteDialogFragment(): DialogFragment(){
             builder.setView(inflater.inflate(R.layout.dialog_name_note, null))
                     .setPositiveButton("Ok",
                         DialogInterface.OnClickListener { dialog, id ->
-                            val noteNameEdt: EditText = getDialog().findViewById(R.id.note_name)
-                            (getContext() as EditNoteActivity).onDialogOKPressed(noteNameEdt.text.toString())
-//                            (this@NameNoteDialogFragment.getParentFragment() as EditNoteActivity).onDialogOKPressed(noteNameEdt.text.toString())
+                            (context as EditNoteActivity).onDialogOKPressed()
                             dismiss()
                         })
                     .setTitle("Nome da Nota")
