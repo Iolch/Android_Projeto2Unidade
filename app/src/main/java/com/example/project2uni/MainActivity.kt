@@ -16,7 +16,7 @@ class MainActivity : AppCompatActivity(), OnDeleteListener, OnEditListener {
     private lateinit var recyclerView: RecyclerView
     private lateinit var viewAdapter: RecyclerView.Adapter<*>
     private lateinit var viewManager: RecyclerView.LayoutManager
-    private var notes: ArrayList <Note> = arrayListOf(Note("teste", "123123"))
+    private var notes: ArrayList <Note> = arrayListOf(Note("teste", "123123"), Note("oi", "io"))
     private val EDIT: Int = 1;
     private val STORE: Int = 2;
     override fun onCreateOptionsMenu(menu: Menu?): Boolean {
@@ -41,9 +41,6 @@ class MainActivity : AppCompatActivity(), OnDeleteListener, OnEditListener {
                 storeNote(data!!.getStringExtra("note_name"), data!!.getStringExtra("text"))
             }
         }
-        if(resultCode == Activity.RESULT_CANCELED){
-            updateNote(0, "1")
-        }
     }
     override fun onCreate(savedInstanceState: Bundle?) {
         super.onCreate(savedInstanceState)
@@ -66,7 +63,6 @@ class MainActivity : AppCompatActivity(), OnDeleteListener, OnEditListener {
     }
     private fun storeNote(name: String, text: String)
     {
-        Log.e("teste", "vo guarda")
         notes.add(Note(name, text))
         viewAdapter.notifyItemInserted(notes.size - 1)
         viewAdapter.notifyDataSetChanged()
@@ -80,7 +76,7 @@ class MainActivity : AppCompatActivity(), OnDeleteListener, OnEditListener {
     override fun editNote(position: Int, text: String)
     {
         val it = Intent(this, EditNoteActivity::class.java)
-        it.putExtra("position", position)
+        it.putExtra("note_position", position)
         it.putExtra("text", text)
         startActivityForResult(it, EDIT)
     }

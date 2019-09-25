@@ -32,6 +32,8 @@ class NotesListAdapter (private val notes: ArrayList <Note>, private val context
         val note = notes[position]
         holder.title.text = note.title
         holder.description.text = note.description
+
+//        holder.itemView.setOnClickListener(){ editListener.editNote(position, holder.description.text.toString())}
     }
 
     inner class ViewHolder(itemView: View, private val context: Context) : RecyclerView.ViewHolder(itemView){
