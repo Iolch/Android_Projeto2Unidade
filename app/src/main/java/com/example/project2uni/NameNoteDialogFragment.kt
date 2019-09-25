@@ -9,21 +9,19 @@ import android.os.Bundle
 import android.util.Log
 import android.widget.EditText
 import androidx.fragment.app.DialogFragment
+import android.app.Activity
 
-class NameNoteDialogFragment(context: Context): DialogFragment(){
+
+
+class NameNoteDialogFragment(context: Context, private val ok: DialogInterface.OnClickListener): DialogFragment(){
     override fun onCreateDialog(savedInstanceState: Bundle?): Dialog {
         return activity?.let {
             val builder = AlertDialog.Builder(it)
             val inflater = requireActivity().layoutInflater;
             builder.setView(inflater.inflate(R.layout.dialog_name_note, null))
-                    .setPositiveButton("Ok",
-                        DialogInterface.OnClickListener { dialog, id ->
-                            (context as EditNoteActivity).onDialogOKPressed()
-                            dismiss()
-                        })
+                    .setPositiveButton("Ok", ok)
                     .setTitle("Nome da Nota")
             builder.create()
         } ?: throw IllegalStateException("Activity cannot be null")
     }
-
 }

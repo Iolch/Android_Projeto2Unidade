@@ -11,7 +11,7 @@ import android.view.View
 import android.widget.EditText
 import android.widget.TextView
 
-class EditNoteActivity : AppCompatActivity(){
+class EditNoteActivity : AppCompatActivity(), DialogInterface.OnClickListener{
     private lateinit var notetext: EditText
     private lateinit var notename: String
     private lateinit var pageintent: Intent
@@ -33,8 +33,8 @@ class EditNoteActivity : AppCompatActivity(){
         setResult(Activity.RESULT_CANCELED, it)
         finish()
     }
-    fun onDialogOKPressed()
-    {
+
+    override fun onClick(dialog: DialogInterface?, which: Int) {
         val it = Intent();
         val notename: EditText = findViewById(R.id.note_name)
         it.putExtra("text", notetext.text.toString())
@@ -46,7 +46,7 @@ class EditNoteActivity : AppCompatActivity(){
     fun save (view: View)
     {
         if(!pageintent.hasExtra("position")) {
-            val newFragment = NameNoteDialogFragment(this)
+            val newFragment = NameNoteDialogFragment(this, this)
             newFragment.show(supportFragmentManager, "notes")
         }else{
             val it = Intent(this, MainActivity::class.java)

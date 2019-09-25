@@ -11,7 +11,7 @@ import android.view.MenuItem
 import androidx.recyclerview.widget.LinearLayoutManager
 import androidx.recyclerview.widget.RecyclerView
 
-class MainActivity : AppCompatActivity() {
+class MainActivity : AppCompatActivity(), OnDeleteListener, OnEditListener {
 
     private lateinit var recyclerView: RecyclerView
     private lateinit var viewAdapter: RecyclerView.Adapter<*>
@@ -50,7 +50,7 @@ class MainActivity : AppCompatActivity() {
         setContentView(R.layout.activity_main)
 
         viewManager = LinearLayoutManager(this)
-        viewAdapter = NotesListAdapter(notes, this)
+        viewAdapter = NotesListAdapter(notes, this, this, this)
 
 
         recyclerView = findViewById<RecyclerView>(R.id.note_list_recyclerview).apply {
@@ -59,23 +59,29 @@ class MainActivity : AppCompatActivity() {
             adapter = viewAdapter
         }
     }
+
+    override fun deleteNote(index: Int) {
+        notes.removeAt(index)
+        viewAdapter.notifyDataSetChanged()
+    }
     private fun storeNote(name: String, text: String)
     {
         Log.e("teste", "vo guarda")
         notes.add(Note(name, text))
+        viewAdapter.notifyItemInserted(notes.size - 1)
+        viewAdapter.notifyDataSetChanged()
     }
-    private fun updateNote(position:Int, text:String)
-    {
-            notes.get(position).description = text
-    }
-    fun editNote(position: Int, text: String)
-    {
 
-        Log.e("teste", "vo alterar")
+    fun updateNote(position: Int, text: String) {
+        val edtnote:Note = Note(notes.get(position).title, text)
+        notes.set(position, edtnote)
+        viewAdapter.notifyDataSetChanged()
+    }
+    override fun editNote(position: Int, text: String)
+    {
         val it = Intent(this, EditNoteActivity::class.java)
         it.putExtra("position", position)
         it.putExtra("text", text)
-
         startActivityForResult(it, EDIT)
     }
 }
