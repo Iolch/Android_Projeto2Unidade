@@ -13,13 +13,13 @@ import android.app.Activity
 
 
 
-class NameNoteDialogFragment(context: Context, private val ok: DialogInterface.OnClickListener): DialogFragment(){
+class NameNoteDialogFragment(context: Context, private val dialogInterface: DialogInterface.OnClickListener): DialogFragment(){
     override fun onCreateDialog(savedInstanceState: Bundle?): Dialog {
         return activity?.let {
             val builder = AlertDialog.Builder(it)
             val inflater = requireActivity().layoutInflater;
             builder.setView(inflater.inflate(R.layout.dialog_name_note, null))
-                    .setPositiveButton("Ok", ok)
+                    .setPositiveButton("Ok", dialogInterface)
                     .setTitle("Nome da Nota")
             builder.create()
         } ?: throw IllegalStateException("Activity cannot be null")

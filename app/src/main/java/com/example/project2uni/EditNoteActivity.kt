@@ -49,10 +49,11 @@ class EditNoteActivity : AppCompatActivity(), DialogInterface.OnClickListener{
             val newFragment = NameNoteDialogFragment(this, this)
             newFragment.show(supportFragmentManager, "notes")
         }else{
-            val it = Intent(this, MainActivity::class.java)
+            val it = Intent()
             it.putExtra("text", notetext.text.toString())
             it.putExtra("note_position", pageintent.getIntExtra("note_position", 0))
-            startActivity(it)
+            setResult(Activity.RESULT_OK, it)
+            finish()
         }
     }
 

@@ -35,7 +35,7 @@ class MainActivity : AppCompatActivity(), OnDeleteListener, OnEditListener {
         super.onActivityResult(requestCode, resultCode, data)
         if(resultCode == Activity.RESULT_OK){
             if(requestCode == EDIT){
-                updateNote(data!!.getIntExtra("position", 0), data!!.getStringExtra("text"))
+                updateNote(data!!.getIntExtra("note_position", 0), data!!.getStringExtra("text"))
             }
             if(requestCode == STORE){
                 storeNote(data!!.getStringExtra("note_name"), data!!.getStringExtra("text"))
@@ -73,8 +73,8 @@ class MainActivity : AppCompatActivity(), OnDeleteListener, OnEditListener {
     }
 
     fun updateNote(position: Int, text: String) {
-        val edtnote:Note = Note(notes.get(position).title, text)
-        notes.set(position, edtnote)
+        val edtnote:Note = Note(notes[position].title, text)
+        notes[position] = edtnote
         viewAdapter.notifyDataSetChanged()
     }
     override fun editNote(position: Int, text: String)
