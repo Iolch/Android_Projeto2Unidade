@@ -1,5 +1,6 @@
 package com.example.project2uni
 
+import android.app.Activity
 import android.content.DialogInterface
 import android.content.Intent
 import androidx.appcompat.app.AppCompatActivity
@@ -28,16 +29,18 @@ class EditNoteActivity : AppCompatActivity(){
     }
     fun cancel (view: View)
     {
-        val it = Intent(this, MainActivity::class.java)
-        startActivity(it)
+        val it = Intent()
+        setResult(Activity.RESULT_CANCELED, it)
+        finish()
     }
     fun onDialogOKPressed()
     {
-        val it = Intent(this, MainActivity::class.java)
+        val it = Intent();
         val notename: EditText = findViewById(R.id.note_name)
-        it.putExtra("text", notetext.text)
-        it.putExtra("note_name", notename.text)
-        startActivity(it)
+        it.putExtra("text", notetext.text.toString())
+        it.putExtra("note_name", notename.text.toString())
+        setResult(Activity.RESULT_OK, it)
+        finish()
     }
 
     fun save (view: View)
@@ -47,7 +50,7 @@ class EditNoteActivity : AppCompatActivity(){
             newFragment.show(supportFragmentManager, "notes")
         }else{
             val it = Intent(this, MainActivity::class.java)
-            it.putExtra("text", notetext.text)
+            it.putExtra("text", notetext.text.toString())
             it.putExtra("note_position", pageintent.getIntExtra("note_position", 0))
             startActivity(it)
         }

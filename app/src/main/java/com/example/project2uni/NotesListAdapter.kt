@@ -41,7 +41,6 @@ class NotesListAdapter (private val notes: ArrayList <Note>, private val context
         init {
             itemView.setOnClickListener()
             {
-
                 (context as MainActivity).editNote(layoutPosition, description.text.toString())
             }
         }

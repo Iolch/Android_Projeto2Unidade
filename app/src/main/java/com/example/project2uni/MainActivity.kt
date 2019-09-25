@@ -1,5 +1,6 @@
 package com.example.project2uni
 
+import android.app.Activity
 import android.content.Intent
 import androidx.appcompat.app.AppCompatActivity
 import android.os.Bundle
@@ -16,14 +17,8 @@ class MainActivity : AppCompatActivity() {
     private lateinit var viewAdapter: RecyclerView.Adapter<*>
     private lateinit var viewManager: RecyclerView.LayoutManager
     private var notes: ArrayList <Note> = arrayListOf(Note("teste", "123123"))
-
-    override fun onCreate(savedInstanceState: Bundle?, persistentState: PersistableBundle?) {
-
-        val it:Intent = getIntent()
-        if(it.hasExtra("note_name") && it.hasExtra("text")) storeNote(it.getStringExtra("note_name"), it.getStringExtra("text"))
-        if(it.hasExtra("position")) updateNote(it.getIntExtra("position",0), it.getStringExtra("text"))
-        super.onCreate(savedInstanceState, persistentState)
-    }
+    private val EDIT: Int = 1;
+    private val STORE: Int = 2;
     override fun onCreateOptionsMenu(menu: Menu?): Boolean {
         getMenuInflater().inflate(R.menu.main_menu, menu)
         return true
@@ -31,9 +26,24 @@ class MainActivity : AppCompatActivity() {
 
     override fun onOptionsItemSelected(item: MenuItem): Boolean {
         val it = Intent(this, EditNoteActivity::class.java)
-        startActivity(it)
+        startActivityForResult(it, STORE)
 
         return super.onOptionsItemSelected(item)
+    }
+
+    override fun onActivityResult(requestCode: Int, resultCode: Int, data: Intent?) {
+        super.onActivityResult(requestCode, resultCode, data)
+        if(resultCode == Activity.RESULT_OK){
+            if(requestCode == EDIT){
+                updateNote(data!!.getIntExtra("position", 0), data!!.getStringExtra("text"))
+            }
+            if(requestCode == STORE){
+                storeNote(data!!.getStringExtra("note_name"), data!!.getStringExtra("text"))
+            }
+        }
+        if(resultCode == Activity.RESULT_CANCELED){
+            updateNote(0, "1")
+        }
     }
     override fun onCreate(savedInstanceState: Bundle?) {
         super.onCreate(savedInstanceState)
@@ -48,24 +58,24 @@ class MainActivity : AppCompatActivity() {
             layoutManager = viewManager
             adapter = viewAdapter
         }
-
-
     }
     private fun storeNote(name: String, text: String)
     {
+        Log.e("teste", "vo guarda")
         notes.add(Note(name, text))
     }
     private fun updateNote(position:Int, text:String)
     {
-            Log.e("teste", "cheguqieee")
             notes.get(position).description = text
     }
     fun editNote(position: Int, text: String)
     {
+
+        Log.e("teste", "vo alterar")
         val it = Intent(this, EditNoteActivity::class.java)
         it.putExtra("position", position)
         it.putExtra("text", text)
 
-        startActivity(it)
+        startActivityForResult(it, EDIT)
     }
 }
