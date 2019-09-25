@@ -1,19 +1,13 @@
 package com.example.project2uni
 
 import android.content.Context
-import android.content.Intent
-import android.util.Log
 import android.view.LayoutInflater
 import android.view.View
 import android.view.ViewGroup
 import androidx.recyclerview.widget.RecyclerView
 import kotlinx.android.synthetic.main.note_item.view.*
-import android.widget.Toast
 
 
-
-//TURORIALLLLL MEDIUMMMM
-//https://medium.com/collabcode/criando-lista-com-recyclerview-no-android-com-kotlin-85cb76f3775d
 
 
 class NotesListAdapter (private val notes: ArrayList <Note>, private val context: Context, private val deleteListener: OnDeleteListener, private val editListener: OnEditListener): RecyclerView.Adapter<NotesListAdapter.ViewHolder>() {
@@ -33,7 +27,6 @@ class NotesListAdapter (private val notes: ArrayList <Note>, private val context
         holder.title.text = note.title
         holder.description.text = note.description
 
-//        holder.itemView.setOnClickListener(){ editListener.editNote(position, holder.description.text.toString())}
     }
 
     inner class ViewHolder(itemView: View, private val context: Context) : RecyclerView.ViewHolder(itemView){
