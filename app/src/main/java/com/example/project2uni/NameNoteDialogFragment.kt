@@ -13,7 +13,7 @@ import android.app.Activity
 
 
 
-class NameNoteDialogFragment(context: Context, private val dialogInterface: DialogInterface.OnClickListener): DialogFragment(){
+class NameNoteDialogFragment(context: Context, private val ok: DialogInterface.OnClickListener): DialogFragment(){
     override fun onCreateDialog(savedInstanceState: Bundle?): Dialog {
         return activity?.let {
             val builder = AlertDialog.Builder(it)
