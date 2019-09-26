@@ -14,7 +14,7 @@ class MainActivity : AppCompatActivity(), OnDeleteListener, OnEditListener {
     private lateinit var recyclerView: RecyclerView
     private lateinit var viewAdapter: RecyclerView.Adapter<*>
     private lateinit var viewManager: RecyclerView.LayoutManager
-    private var notes: ArrayList <Note> = arrayListOf(Note("teste", "123123"), Note("oi", "io"))
+    private var notes: ArrayList <Note> = arrayListOf(Note("Nota 1", "Esta é a primeira nota!"), Note("Nota 2", "Esta é a segunda nota!"))
     private val EDIT: Int = 1;
     private val STORE: Int = 2;
     override fun onCreateOptionsMenu(menu: Menu?): Boolean {
