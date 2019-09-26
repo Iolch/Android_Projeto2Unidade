@@ -46,7 +46,7 @@ class MainActivity : AppCompatActivity(), OnDeleteListener, OnEditListener {
         super.onCreate(savedInstanceState)
         setContentView(R.layout.activity_main)
 
-        database.save(Note("teste", "funfeeee"))
+//        database.save(Note("teste", "funfeeee"))
         listnotes = database.selectAll();
         viewManager = LinearLayoutManager(this)
         viewAdapter = NotesListAdapter(listnotes, this, this, this)
@@ -60,19 +60,24 @@ class MainActivity : AppCompatActivity(), OnDeleteListener, OnEditListener {
     }
 
     override fun deleteNote(index: Int) {
-        notes.removeAt(index)
+        database.remove(listnotes[index])
+        listnotes.removeAt(index)
         viewAdapter.notifyDataSetChanged()
     }
     private fun storeNote(name: String, text: String)
     {
-        notes.add(Note(name, text))
-        viewAdapter.notifyItemInserted(notes.size - 1)
+        listnotes.add(Note(name, text))
+        val newposition = listnotes.size - 1;
+        database.save(listnotes[newposition])
+        viewAdapter.notifyItemInserted(newposition)
         viewAdapter.notifyDataSetChanged()
     }
 
     fun updateNote(position: Int, text: String) {
-        val edtnote:Note = Note(notes[position].title, text)
-        notes[position] = edtnote
+
+        val edtnote:Note = Note(listnotes[position].title, text)
+        listnotes[position] = edtnote
+        database.save(edtnote)
         viewAdapter.notifyDataSetChanged()
     }
     override fun editNote(position: Int, text: String)

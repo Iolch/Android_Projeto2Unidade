@@ -16,7 +16,7 @@ class SQLiteRepository(context: Context): NoteRepository {
         }
         val id = db.insert(TABLE_NAME, null, cv)
         if(id != 1L){
-            note.id
+            note.id = id;
         }
         db.close()
     }
