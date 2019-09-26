@@ -7,7 +7,7 @@ import android.database.Cursor
 class SQLiteRepository(context: Context): NoteRepository {
     private val helper: NoteSqlHelper = NoteSqlHelper(context)
 
-    private fun insert(note: Note)
+    private fun insert(note: Note): Long
     {
         val db = helper.writableDatabase
         val cv = ContentValues().apply {
@@ -19,6 +19,7 @@ class SQLiteRepository(context: Context): NoteRepository {
             note.id = id;
         }
         db.close()
+//        return id;
     }
 
     private fun update(note: Note)
@@ -30,14 +31,17 @@ class SQLiteRepository(context: Context): NoteRepository {
         }
         db.update(TABLE_NAME, cv, "$COLOUMN_ID = ?", arrayOf(note.id.toString()))
         db.close()
+//        return note.id;
     }
 
-    override fun save(note: Note) {
+    override fun save(note: Note){
         if(note.id == 0L)
         {
+//            return insert(note)
             insert(note)
         }else{
             update(note)
+//            return update(note)
         }
     }
 

@@ -69,15 +69,18 @@ class MainActivity : AppCompatActivity(), OnDeleteListener, OnEditListener {
         listnotes.add(Note(name, text))
         val newposition = listnotes.size - 1;
         database.save(listnotes[newposition])
+//        val id = database.save(listnotes[newposition])
+//        listnotes[newposition].id = id;
         viewAdapter.notifyItemInserted(newposition)
         viewAdapter.notifyDataSetChanged()
     }
 
     fun updateNote(position: Int, text: String) {
 
-        val edtnote:Note = Note(listnotes[position].title, text)
+        val edtnote:Note = Note(listnotes[position].title, text, listnotes[position].id)
         listnotes[position] = edtnote
         database.save(edtnote)
+//        val id = database.save(edtnote)
         viewAdapter.notifyDataSetChanged()
     }
     override fun editNote(position: Int, text: String)
