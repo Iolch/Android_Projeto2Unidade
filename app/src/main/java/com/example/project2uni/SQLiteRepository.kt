@@ -57,6 +57,19 @@ class SQLiteRepository(context: Context): NoteRepository {
         callback(note)
     }
 
+     fun selectAll(): ArrayList<Note>{
+
+        val db = helper.readableDatabase
+        val cursor = db.rawQuery("SELECT * FROM $TABLE_NAME", null)
+        val notes = ArrayList<Note>()
+        while (cursor.moveToNext()){
+            val note = noteFromCursor(cursor)
+            notes.add(note)
+        }
+        cursor.close()
+        db.close()
+        return notes
+    }
     override fun search(term: String, callback: (List<Note>?) -> Unit) {
         var sql = "SELECT * FROM $TABLE_NAME"
         var args: Array<String>? = null

@@ -14,9 +14,11 @@ class MainActivity : AppCompatActivity(), OnDeleteListener, OnEditListener {
     private lateinit var recyclerView: RecyclerView
     private lateinit var viewAdapter: RecyclerView.Adapter<*>
     private lateinit var viewManager: RecyclerView.LayoutManager
-    private var notes: ArrayList <Note> = arrayListOf(Note("Nota 1", "Esta é a primeira nota!"), Note("Nota 2", "Esta é a segunda nota!"))
+    private var notes: ArrayList<Note> = arrayListOf(Note("Nota 1", "Esta é a primeira nota!"), Note("Nota 2", "Esta é a segunda nota!"))
+    private lateinit var listnotes: ArrayList<Note>;
     private val EDIT: Int = 1;
     private val STORE: Int = 2;
+    private val database: SQLiteRepository = SQLiteRepository(this);
     override fun onCreateOptionsMenu(menu: Menu?): Boolean {
         getMenuInflater().inflate(R.menu.main_menu, menu)
         return true
@@ -44,8 +46,10 @@ class MainActivity : AppCompatActivity(), OnDeleteListener, OnEditListener {
         super.onCreate(savedInstanceState)
         setContentView(R.layout.activity_main)
 
+        database.save(Note("teste", "funfeeee"))
+        listnotes = database.selectAll();
         viewManager = LinearLayoutManager(this)
-        viewAdapter = NotesListAdapter(notes, this, this, this)
+        viewAdapter = NotesListAdapter(listnotes, this, this, this)
 
 
         recyclerView = findViewById<RecyclerView>(R.id.note_list_recyclerview).apply {
